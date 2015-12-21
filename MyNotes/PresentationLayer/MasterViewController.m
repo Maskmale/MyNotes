@@ -20,7 +20,6 @@
     // Do any additional setup after loading the view.
     
     [self buildUI];
-    
     [self buildTableView];
 }
 
@@ -29,11 +28,25 @@
 {
     self.title = @"备忘录";
     //设置右上角按钮
-    UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addAction)];
+    UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction)];
     self.navigationItem.rightBarButtonItem = add;
     //设置左上角按钮
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editAction)];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction)];
     self.navigationItem.leftBarButtonItem = edit;
+    
+    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.bl = [[NoteBL alloc] init];
+    self.listData = [self.bl findAll];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView:) name:@"reloadViewNotification" object:nil];
+}
+
+#pragma mark 处理通知
+-(void)reloadView:(NSNotification *)notification
+{
+    NSMutableArray *reslist = [notification object];
+    self.listData = reslist;
+    [self.tableView reloadData];
 }
 
 #pragma mark 设置tableview属性
@@ -65,7 +78,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+    return self.listData.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
 }
 
 #pragma mark - UITableViewDataSource
@@ -76,19 +94,46 @@
     
     //Configure the cell ...
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-    
+    Note *note = self.listData[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:15];
-    cell.textLabel.text = @"test";
+    cell.textLabel.text = note.content;
+    cell.detailTextLabel.text = [note.date description];
 
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        Note *note = self.listData[indexPath.row];
+        self.detailViewController.detailItem = note;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Note *note = self.listData[indexPath.row];
+    DetailViewController *detail = [[DetailViewController alloc] init];
+    detail.detailItem = note;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Note *note = [self.listData objectAtIndex:[indexPath row]];
+        NoteBL *bl = [[NoteBL alloc] init];
+        self.listData = [bl remove:note];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }else if (editingStyle == UITableViewCellEditingStyleInsert){
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

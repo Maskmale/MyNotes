@@ -15,7 +15,7 @@
 
 @property (nonatomic, weak) UITextView *txtView;
 
--(void)clickDone:(UIButton *)sender;
+-(void)clickDone;
 -(void)clickSave:(UIButton *)sender;
 
 @end

@@ -27,7 +27,7 @@ static NoteDAO *sharedManager = nil;
         NSDate *date2 = [dateFormatter dateFromString:@"2015-11-30 22:00:00"];
         Note *note2 = [[Note alloc] init];
         note2.date = date2;
-        note2.content = @"欢迎使用MyNotes.";
+        note2.content = @"欢迎使用 MyNotes.";
         
         sharedManager = [[self alloc] init];
         sharedManager.listData = [[NSMutableArray alloc] init];
