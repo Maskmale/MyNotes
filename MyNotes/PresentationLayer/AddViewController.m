@@ -17,6 +17,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self buildUI];
+    
+}
+
+-(void)buildUI
+{
+    UITextView *txtView = [[UITextView alloc] initWithFrame:self.view.bounds];
+    txtView.font = [UIFont systemFontOfSize:15];
+    [self.view addSubview:txtView];
+    self.txtView = txtView;
+    
+    //设置右上角按钮
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickSave)];
+    self.navigationItem.rightBarButtonItem = save;
+    //设置左上角按钮
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(clickDone)];
+    self.navigationItem.leftBarButtonItem = done;
+    
+    self.title = @"新建";
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 -(void)clickDone
@@ -24,7 +44,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)clickSave:(UIButton *)sender
+-(void)clickSave
 {
     NoteBL *bl = [[NoteBL alloc] init];
     Note *note = [[Note alloc] init];

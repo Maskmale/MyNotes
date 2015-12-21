@@ -13,9 +13,9 @@
 
 @interface AddViewController : UIViewController <UITextViewDelegate>
 
-@property (nonatomic, weak) UITextView *txtView;
+@property (nonatomic, strong) UITextView *txtView;
 
 -(void)clickDone;
--(void)clickSave:(UIButton *)sender;
+-(void)clickSave;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "AddViewController.h"
 
 @interface MasterViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -67,7 +68,9 @@
 #pragma mark 添加备忘录操作
 -(void)addAction
 {
-    NSLog(@"add");
+    AddViewController *addController = [[AddViewController alloc] init];
+    UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addController];
+    [self presentViewController:addNav animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate
@@ -119,11 +122,13 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 
+#pragma mark 是否可编辑
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
+#pragma mark 编辑完成
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
