@@ -108,6 +108,8 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.textLabel.text = note.content;
+    //设置文字过长时的显示格式     
+    cell.textLabel.lineBreakMode = UILineBreakModeClip;//截去多余部分
     cell.detailTextLabel.text = [note.date description];
 
     return cell;

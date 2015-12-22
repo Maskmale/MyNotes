@@ -46,6 +46,10 @@
 {
     if (_detailDescriptionLabel == nil) {
         _detailDescriptionLabel = [[UILabel alloc] initWithFrame:self.view.bounds];
+        //设置是否能与用户进行交互     
+        _detailDescriptionLabel.userInteractionEnabled = YES;
+        //自动换行
+        _detailDescriptionLabel.numberOfLines = 0;
         [self.view addSubview:_detailDescriptionLabel];
     }
     return _detailDescriptionLabel;
@@ -67,7 +71,23 @@
 
 -(void)buildUI
 {
+    //设置右上角按钮
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickSave)];
+    self.navigationItem.rightBarButtonItem = save;
+
     self.view.backgroundColor = [UIColor whiteColor];
+}
+
+-(void)clickSave
+{
+    NoteBL *bl = [[NoteBL alloc] init];
+    Note *note = self.detailItem;
+    note.date = [[NSDate alloc] init];
+    note.content = self.detailDescriptionLabel.text;
+    NSMutableArray *reslist = [bl createNote:note];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadViewNotification" object:reslist userInfo:nil];
+    [self.detailDescriptionLabel resignFirstResponder];
 }
 
 -(void)insertNewObject:(id)sender
