@@ -62,6 +62,11 @@
 #pragma mark 编辑备忘录操作
 -(void)editAction
 {
+    if (self.tableView.editing == YES){
+        [self.tableView setEditing:NO animated:YES];
+    }else{
+        [self.tableView setEditing:YES animated:YES];
+    }
     NSLog(@"edit");
 }
 
