@@ -63,11 +63,10 @@
 -(void)editAction
 {
     if (self.tableView.editing == YES){
-        [self.tableView setEditing:NO animated:YES];
-    }else{
-        [self.tableView setEditing:YES animated:YES];
-    }
-    NSLog(@"edit");
+        [self.tableView setEditing:NO animated:YES];
+    }else{
+        [self.tableView setEditing:YES animated:YES];
+    }
 }
 
 #pragma mark 添加备忘录操作
@@ -108,8 +107,6 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.textLabel.text = note.content;
-    //设置文字过长时的显示格式     
-    cell.textLabel.lineBreakMode = UILineBreakModeClip;//截去多余部分
     cell.detailTextLabel.text = [note.date description];
 
     return cell;

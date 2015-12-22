@@ -12,10 +12,10 @@
 #import "NoteBL.h"
 #import "Note.h"
 
-@interface DetailViewController : UIViewController<UISplitViewControllerDelegate>
+@interface DetailViewController : UIViewController<UISplitViewControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) id detailItem;
 
-@property (nonatomic, strong) UILabel *detailDescriptionLabel;
+@property (nonatomic, strong) UITextView *txtView;
 
 @end

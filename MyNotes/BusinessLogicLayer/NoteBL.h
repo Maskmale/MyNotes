@@ -23,6 +23,11 @@
 -(NSMutableArray *)remove:(Note *)model;
 
 /**
+ *  修改备忘录
+ */
+-(NSMutableArray *)modify:(Note *)model;
+
+/**
  *  查询所有数据
  */
 -(NSMutableArray *)findAll;

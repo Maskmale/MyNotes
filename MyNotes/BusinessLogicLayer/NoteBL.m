@@ -28,6 +28,14 @@
     return [dao findAll];
 }
 
+#pragma mark 修改备忘录
+-(NSMutableArray *)modify:(Note *)model{
+    NoteDAO *dao = [NoteDAO sharedManager];
+    [dao modify:model];
+    
+    return [dao findAll];
+}
+
 #pragma mark 查询所有数据
 -(NSMutableArray *)findAll{
     NoteDAO *dao = [NoteDAO sharedManager];

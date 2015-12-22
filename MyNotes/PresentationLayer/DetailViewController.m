@@ -37,22 +37,8 @@
     //Update the user interface for the detail item.
     if (self.detailItem) {
         Note *note = self.detailItem;
-        self.detailDescriptionLabel.text = note.content;
+        self.txtView.text = note.content;
     }
-}
-
-#pragma mark 懒加载
--(UILabel *)detailDescriptionLabel
-{
-    if (_detailDescriptionLabel == nil) {
-        _detailDescriptionLabel = [[UILabel alloc] initWithFrame:self.view.bounds];
-        //设置是否能与用户进行交互     
-        _detailDescriptionLabel.userInteractionEnabled = YES;
-        //自动换行
-        _detailDescriptionLabel.numberOfLines = 0;
-        [self.view addSubview:_detailDescriptionLabel];
-    }
-    return _detailDescriptionLabel;
 }
 
 - (void)viewDidLoad {
@@ -71,6 +57,11 @@
 
 -(void)buildUI
 {
+    UITextView *txtView = [[UITextView alloc] initWithFrame:self.view.bounds];
+    txtView.font = [UIFont systemFontOfSize:15];
+    [self.view addSubview:txtView];
+    self.txtView = txtView;
+    
     //设置右上角按钮
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickSave)];
     self.navigationItem.rightBarButtonItem = save;
@@ -82,12 +73,11 @@
 {
     NoteBL *bl = [[NoteBL alloc] init];
     Note *note = self.detailItem;
-    note.date = [[NSDate alloc] init];
-    note.content = self.detailDescriptionLabel.text;
-    NSMutableArray *reslist = [bl createNote:note];
+    note.content = self.txtView.text;
+    NSMutableArray *reslist = [bl modify:note];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadViewNotification" object:reslist userInfo:nil];
-    [self.detailDescriptionLabel resignFirstResponder];
+    [self.txtView resignFirstResponder];
 }
 
 -(void)insertNewObject:(id)sender
@@ -96,6 +86,15 @@
     addViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     addViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:addViewController animated:YES completion:nil];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
