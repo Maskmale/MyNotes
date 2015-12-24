@@ -58,11 +58,11 @@
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
-        //[dateFormatter setTimeZone:timeZone];
+    //[dateFormatter setTimeZone:timeZone];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *current = [dateformatter stringFromDate: [[NSDate alloc] init]];  
-    NSLog(@"current time is : %@", current);
+    NSString *current = [dateFormatter stringFromDate: [[NSDate alloc] init]];
+    NSLog(@"current time is : %@", current);
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

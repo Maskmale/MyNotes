@@ -20,7 +20,7 @@ static NoteDAO *sharedManager = nil;
         [FileTool createFileFolders];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
-        //[dateFormatter setTimeZone:timeZone];
+        //[dateFormatter setTimeZone:timeZone];
         [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
@@ -72,6 +72,7 @@ static NoteDAO *sharedManager = nil;
             break;
         }
     }
+    [FileTool ergodicMyFolders];
     return 0;
 }
 

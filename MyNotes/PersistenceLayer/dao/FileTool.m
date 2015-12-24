@@ -11,10 +11,8 @@
 
 @implementation FileTool
 
-+(NSArray *)ergodicFolders
++(NSArray *)ergodicMyFolders
 {
-	// 创建文件管理器
-	NSFileManager *fileMgr = [NSFileManager defaultManager];
 	//获取文件夹路径
 	NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 	NSString *path = [document stringByAppendingPathComponent:@"myNotes"];
@@ -26,20 +24,16 @@
 
 +(void) createFileFolders
 {
-	// 创建文件管理器
-	NSFileManager *fileMgr = [NSFileManager defaultManager];
 	//指向文件目录
 	NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 	//创建一个目录
-	[[NSFileManager defaultManager] createDirectoryAtPath: [NSString stringWithFormat:@"%@/myNotes", NSHomeDirectory()] attributes:nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath: [NSString stringWithFormat:@"%@/myNotes", documentsDirectory] attributes:nil];
 }
 
 +(void) writeFileWithNote:(Note *)note
 {
 	//对于错误信息
 	NSError *error = nil;
-	// 创建文件管理器
-	NSFileManager *fileMgr = [NSFileManager defaultManager];
 	//获取文件夹路径
 	NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 	NSString *path = [document stringByAppendingPathComponent:@"myNotes"];
@@ -47,7 +41,7 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *fileName = [dateformatter stringFromDate:note.date];
+    NSString *fileName = [dateFormatter stringFromDate:note.date];
 	NSString *filePath= [path stringByAppendingPathComponent:fileName];
 	//写入文件
 	[note.content writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
@@ -69,7 +63,7 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *fileName = [dateformatter stringFromDate:note.date];
+    NSString *fileName = [dateFormatter stringFromDate:note.date];
 	NSString *filePath= [path stringByAppendingPathComponent:fileName];
 	//移除文件
 	[fileMgr removeItemAtPath:filePath error:&error];
@@ -79,22 +73,21 @@
 }
 
 +(Note *)readFileWithName:(NSString *)fileName
-{  
+{
 	//对于错误信息
 	NSError *error = nil;
-	Note *note = [Note alloc] init];
-	NSFileManager *fileMgr = [NSFileManager defaultManager];
+	Note *note = [[Note alloc] init];
 	//获取文件夹路径
 	NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString *path = [document stringByAppendingPathComponent:@"myNotes"]; 
-    NSString *filePath = [path stringByAppendingPathComponent:fileName]; 
+	NSString *path = [document stringByAppendingPathComponent:@"myNotes"];
+    NSString *filePath = [path stringByAppendingPathComponent:fileName];
 	//读取文件
-    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error]; 
+    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
 	if(error){
 		NSLog(@"read file error:%@",error);
 	}
-	note.content = content; 
- 
+	note.content = content;
+    
 	return note;
 }
 
