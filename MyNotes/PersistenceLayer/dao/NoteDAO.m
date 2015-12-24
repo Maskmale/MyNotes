@@ -8,6 +8,7 @@
 
 #import "NoteDAO.h"
 #import "Note.h"
+#import "FileTool.h"
 
 @implementation NoteDAO
 
@@ -16,6 +17,7 @@ static NoteDAO *sharedManager = nil;
 +(NoteDAO *)sharedManager{
     static dispatch_once_t once;
     dispatch_once(&once, ^{
+        [FileTool createFileFolders];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
         //[dateFormatter setTimeZone:timeZone];
@@ -44,6 +46,7 @@ static NoteDAO *sharedManager = nil;
 #pragma mark 插入备忘录
 -(int)create:(Note *)model{
     [self.listData addObject:model];
+    [FileTool writeFileWithNote:model];
     return 0;
 }
 
@@ -53,6 +56,7 @@ static NoteDAO *sharedManager = nil;
         //比较日期主键是否相等
         if ([note.date isEqualToDate:model.date]) {
             [self.listData removeObject:note];
+            [FileTool removeFileWithNote:note];
             break;
         }
     }
