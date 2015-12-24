@@ -7,6 +7,7 @@
 //
 
 #import "AddViewController.h"
+#import "Tool.h"
 
 @interface AddViewController ()
 
@@ -45,24 +46,16 @@
 }
 
 -(void)clickSave
-{
+{    
     NoteBL *bl = [[NoteBL alloc] init];
     Note *note = [[Note alloc] init];
-    note.date = [[NSDate alloc] init];
+    note.date = [Tool getLocalDateStr];
     note.content = self.txtView.text;
     NSMutableArray *reslist = [bl createNote:note];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadViewNotification" object:reslist userInfo:nil];
     [self.txtView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
-    //[dateFormatter setTimeZone:timeZone];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *current = [dateFormatter stringFromDate: [[NSDate alloc] init]];
-    NSLog(@"current time is : %@", current);
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

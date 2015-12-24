@@ -10,7 +10,7 @@
 
 @interface Note : NSObject
 
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *content;
 
 @end

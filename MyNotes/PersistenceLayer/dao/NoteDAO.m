@@ -8,7 +8,7 @@
 
 #import "NoteDAO.h"
 #import "Note.h"
-#import "FileTool.h"
+#import "Tool.h"
 
 @implementation NoteDAO
 
@@ -17,28 +17,20 @@ static NoteDAO *sharedManager = nil;
 +(NoteDAO *)sharedManager{
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        [FileTool createFileFolders];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
-        //[dateFormatter setTimeZone:timeZone];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [Tool createFileFolders];
         
-        NSDate *date1 = [dateFormatter dateFromString:@"2015-11-30 20:00:12"];
         Note *note1 = [[Note alloc] init];
-        note1.date = date1;
+        note1.date = [Tool getLocalDateStr];
         note1.content = @"Welcome to MyNotes.";
         
-        NSDate *date2 = [dateFormatter dateFromString:@"2015-11-30 22:00:16"];
         Note *note2 = [[Note alloc] init];
-        note2.date = date2;
+        note2.date = [Tool getLocalDateStr];
         note2.content = @"欢迎使用 MyNotes.";
         
         sharedManager = [[self alloc] init];
         sharedManager.listData = [[NSMutableArray alloc] init];
         [sharedManager.listData addObject:note1];
         [sharedManager.listData addObject:note2];
-        
     });
     return sharedManager;
 }
@@ -46,7 +38,7 @@ static NoteDAO *sharedManager = nil;
 #pragma mark 插入备忘录
 -(int)create:(Note *)model{
     [self.listData addObject:model];
-    [FileTool writeFileWithNote:model];
+    [Tool writeFileWithNote:model];
     return 0;
 }
 
@@ -54,9 +46,9 @@ static NoteDAO *sharedManager = nil;
 -(int)remove:(Note *)model{
     for (Note *note in self.listData) {
         //比较日期主键是否相等
-        if ([note.date isEqualToDate:model.date]) {
+        if ([note.date isEqualToString:model.date]) {
             [self.listData removeObject:note];
-            [FileTool removeFileWithNote:note];
+            [Tool removeFileWithNote:note];
             break;
         }
     }
@@ -67,12 +59,12 @@ static NoteDAO *sharedManager = nil;
 -(int)modify:(Note *)model{
     for (Note *note in self.listData) {
         //比较日期主键是否相等
-        if ([note.date isEqualToDate:model.date]) {
+        if ([note.date isEqualToString:model.date]) {
             note.content = model.content;
             break;
         }
     }
-    [FileTool ergodicMyFolders];
+    [Tool ergodicMyFolders];
     return 0;
 }
 
@@ -85,7 +77,7 @@ static NoteDAO *sharedManager = nil;
 -(Note *)findById:(Note *)model{
     for (Note *note in self.listData) {
         //比较日期主键是否相等
-        if ([note.date isEqualToDate:model.date]) {
+        if ([note.date isEqualToString:model.date]) {
             return note;
         }
     }

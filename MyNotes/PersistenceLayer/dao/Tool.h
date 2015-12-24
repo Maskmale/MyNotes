@@ -1,5 +1,5 @@
 //
-//  FileTool.h
+//  Tool.h
 //  MyNotes
 //
 //  Created by dengwei on 15/12/24.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Note;
-@interface FileTool : NSObject
+@interface Tool : NSObject
 
 /**
  *  遍历文件夹
@@ -35,5 +35,10 @@
  *  读取指定文件
  */
 +(Note *)readFileWithName:(NSString *)fileName;
+
+/**
+ *  获取当前本地时间
+ */
++(NSString *)getLocalDateStr;
 
 @end
