@@ -17,7 +17,8 @@ static NoteDAO *sharedManager = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
+        NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
+        [dateFormatter setTimeZone:timeZone];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         
         NSDate *date1 = [dateFormatter dateFromString:@"2015-11-30 20:00"];
