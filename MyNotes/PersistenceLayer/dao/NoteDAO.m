@@ -17,16 +17,17 @@ static NoteDAO *sharedManager = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
-        [dateFormatter setTimeZone:timeZone];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        //NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];  
+        //[dateFormatter setTimeZone:timeZone];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-        NSDate *date1 = [dateFormatter dateFromString:@"2015-11-30 20:00"];
+        NSDate *date1 = [dateFormatter dateFromString:@"2015-11-30 20:00:12"];
         Note *note1 = [[Note alloc] init];
         note1.date = date1;
         note1.content = @"Welcome to MyNotes.";
         
-        NSDate *date2 = [dateFormatter dateFromString:@"2015-11-30 22:00"];
+        NSDate *date2 = [dateFormatter dateFromString:@"2015-11-30 22:00:16"];
         Note *note2 = [[Note alloc] init];
         note2.date = date2;
         note2.content = @"欢迎使用 MyNotes.";
