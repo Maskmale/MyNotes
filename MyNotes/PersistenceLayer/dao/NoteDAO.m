@@ -17,29 +17,22 @@ static NoteDAO *sharedManager = nil;
 +(NoteDAO *)sharedManager{
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        [Tool createFileFolders];
-        NSArray *allFiles = [Tool ergodicMyFolders];
-        for(NSString *fileName in allFiles){
-            Note *note = [Tool readFileWithName:fileName];
-            note.content = [note.content substringToIndex:10];
-            [sharedManager.listData addObject:note];
-        }
-        Note *note1 = [[Note alloc] init];
-        note1.date = [Tool getLocalDateStr];
-        note1.content = @"Welcome to MyNotes.";
-        
-        Note *note2 = [[Note alloc] init];
-        note2.date = [Tool getLocalDateStr];
-        note2.content = @"欢迎使用 MyNotes.";
         
         sharedManager = [[self alloc] init];
         sharedManager.listData = [[NSMutableArray alloc] init];
-        [Tool writeFileWithNote:note1];
-        [Tool writeFileWithNote:note2];
-        note1.content = [note1.content substringToIndex:10];
-        note2.content = [note2.content substringToIndex:10];
-        [sharedManager.listData addObject:note1];
-        [sharedManager.listData addObject:note2];
+        [Tool createFileFolders];
+        NSArray *allFiles = [Tool ergodicMyFolders];
+        NSString *header;
+        NSInteger len = 0;
+        for(NSString *fileName in allFiles){
+            header = [fileName substringToIndex:1];
+            if (![header isEqualToString:@"."]) {
+                Note *note = [Tool readFileWithName:fileName];
+                len = note.content.length > 30 ? 30 : note.content.length;
+                note.content = [note.content substringToIndex:len];
+                [sharedManager.listData addObject:note];
+            }
+        }
     });
     return sharedManager;
 }
@@ -47,7 +40,8 @@ static NoteDAO *sharedManager = nil;
 #pragma mark 插入备忘录
 -(int)create:(Note *)model{    
     [Tool writeFileWithNote:model];
-    model.content = [model.content substringToIndex:10];
+    NSInteger len = model.content.length > 30 ? 30 : model.content.length;
+    model.content = [model.content substringToIndex:len];
     [self.listData addObject:model];
     return 0;
 }
