@@ -31,6 +31,8 @@ static NoteDAO *sharedManager = nil;
         sharedManager.listData = [[NSMutableArray alloc] init];
         [sharedManager.listData addObject:note1];
         [sharedManager.listData addObject:note2];
+        [Tool writeFileWithNote:note1];
+        [Tool writeFileWithNote:note2];
     });
     return sharedManager;
 }
@@ -61,6 +63,7 @@ static NoteDAO *sharedManager = nil;
         //比较日期主键是否相等
         if ([note.date isEqualToString:model.date]) {
             note.content = model.content;
+            [Tool writeFileWithNote:note];
             break;
         }
     }
