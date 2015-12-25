@@ -18,7 +18,12 @@ static NoteDAO *sharedManager = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         [Tool createFileFolders];
-        
+        NSArray *allFiles = [Tool ergodicMyFolders];
+        for(NSString *fileName in allFiles){
+            Note *note = [Tool readFileWithName:fileName];
+            note.content = [note.content substringToIndex:10];
+            [sharedManager.listData addObject:note];
+        }
         Note *note1 = [[Note alloc] init];
         note1.date = [Tool getLocalDateStr];
         note1.content = @"Welcome to MyNotes.";
@@ -29,18 +34,21 @@ static NoteDAO *sharedManager = nil;
         
         sharedManager = [[self alloc] init];
         sharedManager.listData = [[NSMutableArray alloc] init];
-        [sharedManager.listData addObject:note1];
-        [sharedManager.listData addObject:note2];
         [Tool writeFileWithNote:note1];
         [Tool writeFileWithNote:note2];
+        note1.content = [note1.content substringToIndex:10];
+        note2.content = [note2.content substringToIndex:10];
+        [sharedManager.listData addObject:note1];
+        [sharedManager.listData addObject:note2];
     });
     return sharedManager;
 }
 
 #pragma mark 插入备忘录
--(int)create:(Note *)model{
-    [self.listData addObject:model];
+-(int)create:(Note *)model{    
     [Tool writeFileWithNote:model];
+    model.content = [model.content substringToIndex:10];
+    [self.listData addObject:model];
     return 0;
 }
 
@@ -67,7 +75,6 @@ static NoteDAO *sharedManager = nil;
             break;
         }
     }
-    [Tool ergodicMyFolders];
     return 0;
 }
 

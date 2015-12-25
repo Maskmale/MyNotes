@@ -19,7 +19,6 @@
 	NSString *path = [document stringByAppendingPathComponent:@"myNotes"];
 	//获取当前目录下的所有文件
 	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
-	NSLog(@"directoryContents:%@",directoryContents);
 	return directoryContents;
 }
 
@@ -83,6 +82,7 @@
 	if(error){
 		NSLog(@"read file error:%@",error);
 	}
+	note.date = fileName;
 	note.content = content;
     
 	return note;

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "Tool.h"
 
 @interface DetailViewController ()
 
@@ -37,6 +38,7 @@
     //Update the user interface for the detail item.
     if (self.detailItem) {
         Note *note = self.detailItem;
+        note = [Tool readFileWithName:note.date];
         self.txtView.text = note.content;
     }
 }
