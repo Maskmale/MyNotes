@@ -65,7 +65,7 @@
     self.txtView = txtView;
     
     //设置右上角按钮
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickSave)];
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(clickSave)];
     self.navigationItem.rightBarButtonItem = save;
 
     self.view.backgroundColor = [UIColor whiteColor];

@@ -32,7 +32,7 @@
     UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction)];
     self.navigationItem.rightBarButtonItem = add;
     //设置左上角按钮
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction)];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editAction)];
     self.navigationItem.leftBarButtonItem = edit;
     
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
@@ -90,7 +90,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 70;
 }
 
 #pragma mark - UITableViewDataSource
@@ -105,8 +105,9 @@
     }
     Note *note = self.listData[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    cell.textLabel.font = [UIFont systemFontOfSize:20];
     cell.textLabel.text = note.content;
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     cell.detailTextLabel.text = [note.date description];
 
     return cell;

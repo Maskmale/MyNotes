@@ -30,17 +30,17 @@
     self.txtView = txtView;
     
     //设置右上角按钮
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickSave)];
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(clickSave)];
     self.navigationItem.rightBarButtonItem = save;
     //设置左上角按钮
-    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(clickDone)];
-    self.navigationItem.leftBarButtonItem = done;
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(clickCancel)];
+    self.navigationItem.leftBarButtonItem = cancel;
     
     self.title = @"新建";
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
--(void)clickDone
+-(void)clickCancel
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

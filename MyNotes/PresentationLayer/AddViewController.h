@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) UITextView *txtView;
 
--(void)clickDone;
+-(void)clickCancel;
 -(void)clickSave;
 
 @end
