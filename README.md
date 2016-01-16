@@ -20,6 +20,4 @@ screenshots
 My blog is [here](http://my.oschina.net/chars/blog). Welcome to visit!
 
 #E-mail
-Author:chars_d@126.com
-
-Copyright
+chars_d@126.com
