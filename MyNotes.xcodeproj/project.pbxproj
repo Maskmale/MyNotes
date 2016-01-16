@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5A16A8D1C471E9D00E0762E /* PopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A16A8C1C471E9D00E0762E /* PopViewController.m */; };
+		D5A16A911C47218500E0762E /* PopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A16A901C47218500E0762E /* PopView.m */; };
+		D5A16A951C4722F400E0762E /* popover_background.png in Resources */ = {isa = PBXBuildFile; fileRef = D5A16A941C4722F400E0762E /* popover_background.png */; };
 		D5D067E91C2C08D400E2CC70 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D067E81C2C08D400E2CC70 /* Tool.m */; };
 		D5F8D0061C0C879900F8E8A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D0051C0C879900F8E8A8 /* main.m */; };
 		D5F8D0091C0C879900F8E8A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D0081C0C879900F8E8A8 /* AppDelegate.m */; };
@@ -33,6 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5A16A8B1C471E9D00E0762E /* PopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopViewController.h; sourceTree = "<group>"; };
+		D5A16A8C1C471E9D00E0762E /* PopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopViewController.m; sourceTree = "<group>"; };
+		D5A16A8F1C47218500E0762E /* PopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopView.h; sourceTree = "<group>"; };
+		D5A16A901C47218500E0762E /* PopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopView.m; sourceTree = "<group>"; };
+		D5A16A941C4722F400E0762E /* popover_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popover_background.png; sourceTree = "<group>"; };
 		D5D067E71C2C08D400E2CC70 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
 		D5D067E81C2C08D400E2CC70 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
 		D5F8D0001C0C879900F8E8A8 /* MyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +86,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D5A16A8E1C47216C00E0762E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D5A16A8F1C47218500E0762E /* PopView.h */,
+				D5A16A901C47218500E0762E /* PopView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D5A16A921C4722F400E0762E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D5A16A931C4722F400E0762E /* Image */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D5A16A931C4722F400E0762E /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				D5A16A941C4722F400E0762E /* popover_background.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		D5F8CFF71C0C879900F8E8A8 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +146,7 @@
 		D5F8D0031C0C879900F8E8A8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5A16A921C4722F400E0762E /* Resource */,
 				D5F8D0041C0C879900F8E8A8 /* Info.plist */,
 				D5F8D0051C0C879900F8E8A8 /* main.m */,
 			);
@@ -177,6 +211,7 @@
 		D5F8D02D1C0C881700F8E8A8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				D5A16A8E1C47216C00E0762E /* View */,
 				D5F8D0071C0C879900F8E8A8 /* AppDelegate.h */,
 				D5F8D0081C0C879900F8E8A8 /* AppDelegate.m */,
 				D5F8D0371C0C945700F8E8A8 /* AddViewController.h */,
@@ -185,6 +220,8 @@
 				D5F8D03B1C0C947200F8E8A8 /* DetailViewController.m */,
 				D5F8D03D1C0C948800F8E8A8 /* MasterViewController.h */,
 				D5F8D03E1C0C948800F8E8A8 /* MasterViewController.m */,
+				D5A16A8B1C471E9D00E0762E /* PopViewController.h */,
+				D5A16A8C1C471E9D00E0762E /* PopViewController.m */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -272,6 +309,7 @@
 				D5F8D00F1C0C879900F8E8A8 /* Main.storyboard in Resources */,
 				D5F8D0141C0C879900F8E8A8 /* LaunchScreen.xib in Resources */,
 				D5F8D0111C0C879900F8E8A8 /* Images.xcassets in Resources */,
+				D5A16A951C4722F400E0762E /* popover_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,9 +333,11 @@
 				D5F8D0391C0C945700F8E8A8 /* AddViewController.m in Sources */,
 				D5F8D0091C0C879900F8E8A8 /* AppDelegate.m in Sources */,
 				D5F8D0301C0C885700F8E8A8 /* NoteDAO.m in Sources */,
+				D5A16A8D1C471E9D00E0762E /* PopViewController.m in Sources */,
 				D5F8D03F1C0C948800F8E8A8 /* MasterViewController.m in Sources */,
 				D5D067E91C2C08D400E2CC70 /* Tool.m in Sources */,
 				D5F8D0061C0C879900F8E8A8 /* main.m in Sources */,
+				D5A16A911C47218500E0762E /* PopView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

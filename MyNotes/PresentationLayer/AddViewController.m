@@ -42,6 +42,7 @@
 
 -(void)clickCancel
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadViewNotification" object:nil userInfo:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

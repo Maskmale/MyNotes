@@ -9,8 +9,13 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "AddViewController.h"
+#import "PopViewController.h"
+#import "PopView.h"
 
-@interface MasterViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface MasterViewController ()<UITableViewDataSource, UITableViewDelegate, PopViewDelegate>
+
+@property (nonatomic, copy) PopView *popView;
+@property (nonatomic, copy) PopViewController *popViewController;
 
 @end
 
@@ -29,8 +34,8 @@
 {
     self.title = @"备忘录";
     //设置右上角按钮
-    UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction)];
-    self.navigationItem.rightBarButtonItem = add;
+    UIBarButtonItem *more = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
+    self.navigationItem.rightBarButtonItem = more;
     //设置左上角按钮
     UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editAction)];
     self.navigationItem.leftBarButtonItem = edit;
@@ -42,11 +47,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView:) name:@"reloadViewNotification" object:nil];
 }
 
-#pragma mark 处理通知
+#pragma mark - 处理通知
 -(void)reloadView:(NSNotification *)notification
 {
+    if (_popView) {
+        [self.popView removePopView];
+        self.popView = nil;
+    }
+    [self.popViewController.view removeFromSuperview];
+    self.popViewController = nil;
+    
     NSMutableArray *reslist = [notification object];
-    self.listData = reslist;
+    if (reslist) {
+        self.listData = reslist;
+    }    
     [self.tableView reloadData];
 }
 
@@ -69,12 +83,15 @@
     }
 }
 
-#pragma mark 添加备忘录操作
--(void)addAction
-{
-    AddViewController *addController = [[AddViewController alloc] init];
-    UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addController];
-    [self presentViewController:addNav animated:YES completion:nil];
+#pragma mark 更多操作
+-(void)moreAction
+{   
+    //  显示菜单
+    CGFloat x = (self.view.frame.size.width - 100);
+    CGFloat y = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    
+    self.popView.contentView = self.popViewController.view;
+    [self.popView showInRect:CGRectMake(x, y, 100, 145)];
 }
 
 #pragma mark - UITableViewDelegate
@@ -146,9 +163,41 @@
     }
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 懒加载
+- (PopViewController *)popViewController
+{
+    if (_popViewController == nil) {
+        PopViewController *pop = [[PopViewController alloc] init];
+        _popViewController = pop;
+        
+    }
+    return _popViewController;
+}
+- (PopView *)popView
+{
+    if (_popView == nil) {
+        
+        PopView *v = [PopView popView];
+        v.delegate = self;
+        _popView = v;
+    }
+    return _popView;
+}
+
+#pragma mark - PopViewDelegate method
+- (void)popViewDidDismiss:(PopView *)popView
+{
+    NSLog(@"popViewDidDismiss");
 }
 
 
