@@ -1,6 +1,9 @@
 # MyNotes
 一个记事本软件。<br/>
-功能：编辑已有备忘录；查看已有备忘录；添加新备忘录。
+功能：</br>
+  * 编辑已有备忘录；</br>
+  * 查看已有备忘录；</br>
+  * 添加新备忘录。
 
 screenshots
 -----------------------
@@ -17,6 +20,4 @@ screenshots
 My blog is [here](http://my.oschina.net/chars/blog). Welcome to visit!
 
 #E-mail
-Author:chars_d@126.com
-
-Copyright
+chars_d@126.com
