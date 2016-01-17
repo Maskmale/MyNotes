@@ -11,6 +11,8 @@
 #import "AddViewController.h"
 #import "PopViewController.h"
 #import "PopView.h"
+#import "QiniuSDK.h"
+#import "Tool.h"
 
 @interface MasterViewController ()<UITableViewDataSource, UITableViewDelegate, PopViewDelegate>
 
@@ -45,6 +47,8 @@
     self.listData = [self.bl findAll];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView:) name:@"reloadViewNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncFileData:) name:@"syncFileDataNotification" object:nil];
 }
 
 #pragma mark - 处理通知
@@ -62,6 +66,36 @@
         self.listData = reslist;
     }    
     [self.tableView reloadData];
+}
+
+-(void)syncFileData:(NSNotification *)notification
+{
+    if (_popView) {
+        [self.popView removePopView];
+        self.popView = nil;
+    }
+    [self.popViewController.view removeFromSuperview];
+    self.popViewController = nil;
+    
+    //从服务器SDK获取的token
+    NSString *token = @"sfPKD6WfFblx2v9I1CgI1A9ALzdpXDpGZzz2MSeI:dnF3GnFJli5lDJgioUg4zAt9mIA=:eyJzY29wZSI6Im15bm90ZXMiLCJkZWFkbGluZSI6MzIzMTA4MTM1N30=";
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    
+    NSString *content;
+    NSString *key;
+    for (Note *note in self.listData) {
+        key = note.date;
+        Note *n = [Tool readFileWithName:note.date];
+        content = n.content;
+        
+        NSData *data = [content dataUsingEncoding : NSUTF8StringEncoding];
+        [upManager putData:data key:key token:token
+                  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                      NSLog(@"info:\n%@", info);
+                      NSLog(@"resp:\n%@", resp);
+                  } option:nil];
+    }
+    
 }
 
 #pragma mark 设置tableview属性

@@ -66,8 +66,9 @@
     // 不加此句时，在二级栏目点击返回时，此行会由选中状态慢慢变成非选中状态。
     // 加上此句，返回时直接就是非选中状态。
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) { //"立即同步"
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"syncFileDataNotification" object:nil userInfo:nil];
+    }else if (indexPath.row == 1) {  //"新建"
         AddViewController *addController = [[AddViewController alloc] init];
         UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addController];
         [self presentViewController:addNav animated:YES completion:^{
@@ -77,5 +78,6 @@
     
     
 }
+
 
 @end
