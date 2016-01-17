@@ -16,6 +16,9 @@
 <img alt="one" src="https://raw.github.com/charsdavy/MyNotes/master/screenshots/m4.png" width="180">
 &nbsp;&nbsp;
 
+#Method
+使用命令安装第三方SDK：pod install --no-repo-update
+
 #Resolve Error
 使用七牛云存储，可能遇见一些编译问题，此时请[参看](http://kb.qiniu.com/5t06228o)。
 

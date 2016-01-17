@@ -77,6 +77,8 @@
     [self.popViewController.view removeFromSuperview];
     self.popViewController = nil;
     
+    NSLog(@"立即同步");
+    
     //从服务器SDK获取的token
     NSString *token = @"sfPKD6WfFblx2v9I1CgI1A9ALzdpXDpGZzz2MSeI:dnF3GnFJli5lDJgioUg4zAt9mIA=:eyJzY29wZSI6Im15bm90ZXMiLCJkZWFkbGluZSI6MzIzMTA4MTM1N30=";
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
