@@ -20,7 +20,7 @@
 使用命令安装第三方SDK：pod install --no-repo-update
 
 #Resolve Error
-使用七牛云存储，可能遇见一些编译问题，此时请[参看](http://kb.qiniu.com/5t06228o)。
+使用七牛云存储，可能遇见一些编译问题，此时请参看[这里](http://kb.qiniu.com/5t06228o)。
 
 #Blog
 My blog is [here](http://my.oschina.net/chars/blog). Welcome to visit!
