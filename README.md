@@ -7,7 +7,7 @@
     * 同步本地文件到云端存储。（七牛云存储）
 
 #Screenshots
-<img alt="one" src="https://raw.github.com/charsdavy/MyNotes/master/screenshots/about.gif" width="180">
+<img alt="one" src="https://raw.github.com/charsdavy/MyNotes/master/screenshots/about.gif" width="200">
 &nbsp;&nbsp;
 
 #Method
